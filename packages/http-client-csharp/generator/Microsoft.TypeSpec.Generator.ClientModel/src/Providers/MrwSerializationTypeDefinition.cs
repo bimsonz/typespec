@@ -797,20 +797,22 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Providers
 
         private SwitchCaseStatement[] GetDiscriminatorSwitchCases(ModelProvider unknownVariant)
         {
-            SwitchCaseStatement[] cases = new SwitchCaseStatement[_model.DerivedModels.Count - 1];
-            int index = 0;
-            for (int i = 0; i < cases.Length; i++)
+            // Enumerate every derived model rather than the first (Count - 1) entries. The unknown
+            // variant is not guaranteed to be last - rebasing a hierarchy (for example via
+            // hierarchyBuilding) can append derived models after it - which would otherwise leave
+            // unassigned entries in the array.
+            List<SwitchCaseStatement> cases = new(_model.DerivedModels.Count);
+            foreach (var model in _model.DerivedModels)
             {
-                var model = _model.DerivedModels[i];
-                if (ReferenceEquals(model, unknownVariant))
+                if (ReferenceEquals(model, unknownVariant) || model.DiscriminatorValue is null)
                 {
                     continue;
                 }
-                cases[index++] = new SwitchCaseStatement(
-                    Literal(model.DiscriminatorValue!),
-                    Return(GetDeserializationMethodInvocationForType(model, _jsonElementParameterSnippet, _dataParameter, _serializationOptionsParameter)));
+                cases.Add(new SwitchCaseStatement(
+                    Literal(model.DiscriminatorValue),
+                    Return(GetDeserializationMethodInvocationForType(model, _jsonElementParameterSnippet, _dataParameter, _serializationOptionsParameter))));
             }
-            return cases;
+            return [.. cases];
         }
 
         /// <summary>
@@ -2382,7 +2384,9 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Providers
                 var t when t == typeof(string) || t == typeof(char) || t == typeof(Guid) =>
                     utf8JsonWriter.WriteStringValue(value),
                 var t when t == typeof(bool) =>
-                    utf8JsonWriter.WriteBooleanValue(value),
+                    serializationFormat == SerializationFormat.Boolean_String
+                        ? utf8JsonWriter.WriteStringValue(new TernaryConditionalExpression(value, Literal("true"), Literal("false")))
+                        : utf8JsonWriter.WriteBooleanValue(value),
                 var t when t == typeof(byte[]) =>
                     utf8JsonWriter.WriteBase64StringValue(value, serializationFormat.ToFormatSpecifier()),
                 var t when t == typeof(DateTimeOffset) || t == typeof(DateTime) || t == typeof(TimeSpan) =>
@@ -2468,7 +2472,9 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Providers
                 Type t when t == typeof(object) =>
                     element.GetObject(),
                 Type t when t == typeof(bool) =>
-                    element.GetBoolean(),
+                    format == SerializationFormat.Boolean_String
+                        ? Static<bool>().Invoke(nameof(bool.Parse), element.GetString())
+                        : element.GetBoolean(),
                 Type t when t == typeof(char) =>
                     element.GetChar(),
                 Type t when ValueTypeIsInt(t) =>

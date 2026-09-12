@@ -34,11 +34,13 @@
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\client\structure\two-operation-group\src\Client.Structure.Service.TwoOperationGroup.csproj" Aliases="ClientStructureTwoOperationGroup" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\array\src\Encode.Array.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\documentation\src\Documentation.csproj" />
+    <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\boolean\src\Encode.Boolean.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\bytes\src\Encode.Bytes.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\datetime\src\Encode.Datetime.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\duration\src\Encode.Duration.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\encode\numeric\src\Encode.Numeric.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\parameters\basic\src\Parameters.Basic.csproj" />
+    <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\parameters\body-root\src\Parameters.BodyRoot.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\parameters\body-optionality\src\Parameters.BodyOptionality.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\parameters\collection-format\src\Parameters.CollectionFormat.csproj" />
     <ProjectReference Include="$(RepoRoot)\TestProjects\Spector\http\parameters\spread\src\Parameters.Spread.csproj" />

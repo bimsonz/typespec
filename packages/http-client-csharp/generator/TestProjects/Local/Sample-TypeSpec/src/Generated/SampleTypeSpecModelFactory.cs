@@ -270,7 +270,7 @@ namespace SampleTypeSpec
         /// <param name="nestedModel"> A nested model property. </param>
         /// <param name="optionalNestedModel"> An optional nested model. </param>
         /// <param name="metadata"> A dictionary property. </param>
-        /// <param name="createdAt"> A date-time property. </param>
+        /// <param name="createdOn"> A date-time property. </param>
         /// <param name="duration"> A duration property. </param>
         /// <param name="data"> A bytes property. </param>
         /// <param name="optionalRecordUnknown"> optional record of unknown. </param>
@@ -290,7 +290,7 @@ namespace SampleTypeSpec
         /// <param name="dictionaryListFoo"></param>
         /// <param name="listOfDictionaryFoo"></param>
         /// <returns> A new <see cref="SampleTypeSpec.XmlAdvancedModel"/> instance for mocking. </returns>
-        public static XmlAdvancedModel XmlAdvancedModel(string name = default, int age = default, bool enabled = default, float score = default, string optionalString = default, int? optionalInt = default, string nullableString = default, string id = default, int version = default, bool isActive = default, string originalName = default, string xmlIdentifier = default, string content = default, IEnumerable<string> unwrappedStrings = default, IEnumerable<int> unwrappedCounts = default, IEnumerable<XmlItem> unwrappedItems = default, IEnumerable<string> wrappedColors = default, IEnumerable<XmlItem> items = default, XmlNestedModel nestedModel = default, XmlNestedModel optionalNestedModel = default, IDictionary<string, string> metadata = default, DateTimeOffset createdAt = default, TimeSpan duration = default, BinaryData data = default, IDictionary<string, BinaryData> optionalRecordUnknown = default, StringFixedEnum fixedEnum = default, StringExtensibleEnum extensibleEnum = default, IntFixedEnum? optionalFixedEnum = default, IntExtensibleEnum? optionalExtensibleEnum = default, string label = default, int daysUsed = default, IEnumerable<string> fooItems = default, XmlNestedModel anotherModel = default, IEnumerable<XmlModelWithNamespace> modelsWithNamespaces = default, IEnumerable<XmlModelWithNamespace> unwrappedModelsWithNamespaces = default, IEnumerable<IList<XmlItem>> listOfListFoo = default, IDictionary<string, XmlItem> dictionaryFoo = default, IDictionary<string, IDictionary<string, XmlItem>> dictionaryOfDictionaryFoo = default, IDictionary<string, IList<XmlItem>> dictionaryListFoo = default, IEnumerable<IDictionary<string, XmlItem>> listOfDictionaryFoo = default)
+        public static XmlAdvancedModel XmlAdvancedModel(string name = default, int age = default, bool enabled = default, float score = default, string optionalString = default, int? optionalInt = default, string nullableString = default, string id = default, int version = default, bool isActive = default, string originalName = default, string xmlIdentifier = default, string content = default, IEnumerable<string> unwrappedStrings = default, IEnumerable<int> unwrappedCounts = default, IEnumerable<XmlItem> unwrappedItems = default, IEnumerable<string> wrappedColors = default, IEnumerable<XmlItem> items = default, XmlNestedModel nestedModel = default, XmlNestedModel optionalNestedModel = default, IDictionary<string, string> metadata = default, DateTimeOffset createdOn = default, TimeSpan duration = default, BinaryData data = default, IDictionary<string, BinaryData> optionalRecordUnknown = default, StringFixedEnum fixedEnum = default, StringExtensibleEnum extensibleEnum = default, IntFixedEnum? optionalFixedEnum = default, IntExtensibleEnum? optionalExtensibleEnum = default, string label = default, int daysUsed = default, IEnumerable<string> fooItems = default, XmlNestedModel anotherModel = default, IEnumerable<XmlModelWithNamespace> modelsWithNamespaces = default, IEnumerable<XmlModelWithNamespace> unwrappedModelsWithNamespaces = default, IEnumerable<IList<XmlItem>> listOfListFoo = default, IDictionary<string, XmlItem> dictionaryFoo = default, IDictionary<string, IDictionary<string, XmlItem>> dictionaryOfDictionaryFoo = default, IDictionary<string, IList<XmlItem>> dictionaryListFoo = default, IEnumerable<IDictionary<string, XmlItem>> listOfDictionaryFoo = default)
         {
             unwrappedStrings ??= new ChangeTrackingList<string>();
             unwrappedCounts ??= new ChangeTrackingList<int>();
@@ -330,7 +330,7 @@ namespace SampleTypeSpec
                 nestedModel,
                 optionalNestedModel,
                 metadata,
-                createdAt,
+                createdOn,
                 duration,
                 data,
                 optionalRecordUnknown,
@@ -508,6 +508,35 @@ namespace SampleTypeSpec
         public static GetNotebookResponse GetNotebookResponse(string name = default, string content = default)
         {
             return new GetNotebookResponse(name, content, additionalBinaryDataProperties: null);
+        }
+
+        /// <summary> The NullableDynamicModel. </summary>
+        /// <param name="modelValue"></param>
+        /// <param name="children"></param>
+        /// <param name="childDictionary"></param>
+        /// <param name="nestedChildren"></param>
+        /// <param name="nestedChildDictionary"></param>
+        /// <param name="dictionaryChildren"></param>
+        /// <param name="listOfDictionaries"></param>
+        /// <returns> A new <see cref="SampleTypeSpec.NullableDynamicModel"/> instance for mocking. </returns>
+        public static NullableDynamicModel NullableDynamicModel(AnotherDynamicModel modelValue = default, IEnumerable<AnotherDynamicModel> children = default, IDictionary<string, AnotherDynamicModel> childDictionary = default, IEnumerable<IList<AnotherDynamicModel>> nestedChildren = default, IDictionary<string, IDictionary<string, AnotherDynamicModel>> nestedChildDictionary = default, IDictionary<string, IList<AnotherDynamicModel>> dictionaryChildren = default, IEnumerable<IDictionary<string, AnotherDynamicModel>> listOfDictionaries = default)
+        {
+            children ??= new ChangeTrackingList<AnotherDynamicModel>();
+            childDictionary ??= new ChangeTrackingDictionary<string, AnotherDynamicModel>();
+            nestedChildren ??= new ChangeTrackingList<IList<AnotherDynamicModel>>();
+            nestedChildDictionary ??= new ChangeTrackingDictionary<string, IDictionary<string, AnotherDynamicModel>>();
+            dictionaryChildren ??= new ChangeTrackingDictionary<string, IList<AnotherDynamicModel>>();
+            listOfDictionaries ??= new ChangeTrackingList<IDictionary<string, AnotherDynamicModel>>();
+
+            return new NullableDynamicModel(
+                modelValue,
+                children.ToList(),
+                childDictionary,
+                nestedChildren.ToList(),
+                nestedChildDictionary,
+                dictionaryChildren,
+                listOfDictionaries.ToList(),
+                default);
         }
     }
 }
